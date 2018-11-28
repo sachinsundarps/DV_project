@@ -1,0 +1,81 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Local Sight Explorer</title>
+    <style>
+    .column {
+        float: left;
+        width: 48%;
+        padding: 2px;
+    }
+
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    div.frame{
+        width:50%;
+        height:50%;
+        border:solid #000 1px;
+    }
+    .card-small {
+        height: 800px;
+        width: 900px;
+    }
+    </style>
+    
+</head>
+
+<body>
+    <div class='main-container' id='main-container'>
+        <h4 align="center">Local Sight Explorer - expansion of sight glyph</h4>
+        <div class="card-content" id="subspace-view">
+            <form action="#">
+                <p>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Select Pattern</span>
+                  </label>
+                  <a class="waves-effect waves-light btn">Confirm</a>
+                  <a class="waves-effect waves-light btn">Refine</a>
+                  <a class="waves-effect waves-light btn">Clear</a>
+                  <a class="waves-effect waves-light btn">Export</a>
+                  <a class="waves-effect waves-light btn">Randomize</a>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Only selected</span>
+                  </label>
+              </p>
+            </form>
+            <!--<iframe src="../intermediateData/4.html" height="600px" width="1100px" style="border:2px solid grey;"></iframe>-->
+        </div>
+        <div id="options">
+            
+        </div>
+    </div>
+
+    <script src="lib/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="lib/materialize.min.js"></script>
+    <script src="lib/jquery-ui.js"></script>
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript">
+                d3.csv("0_pcs.csv", function(error, data)
+                {
+                    for(var i = 0; i < data.length; i++)
+                    {
+                        //console.log(data[i]);
+                        //console.log(data[i].Name);
+                        console.log(data[i]);
+                    }
+
+                });
+            </script>
+</body>
+
+</html>

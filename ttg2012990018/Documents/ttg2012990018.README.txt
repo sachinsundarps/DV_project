@@ -1,0 +1,6 @@
+Description: Supplemental Material for the article "TripAdvisorN-D: A Tourism-Inspired High-Dimensional Space Exploration Framework with Overview and Detail"
+Size: 3902278
+Platform: All
+Environment:  Video file format. Can be viewing by most standard media players.  Portable Document File is a file format that can contain text, images and multimedia files. It can be viewed using Adobe Acrobat or Acrobat Reader. 
+Major Component Description: 2 mp4 file(s), 1 pdf file(s), (ttg2012990018s1.mp4, ttg2012990018s2.mp4, ttg2012990018s3.pdf)
+Contact Information: tshmu@computer.org

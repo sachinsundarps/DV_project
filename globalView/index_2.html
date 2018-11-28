@@ -1,0 +1,42 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Australian Open Tennis</title>
+</head>
+
+<body>
+    <div class='main-container' id='main-container'>
+        <h3>Global View</h3>
+        <div id="subspace-view" class="card-panel"></div>
+        <div id="options" class="card-panel">
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown'>Click here to select distance Metrics</a>
+            <ul id='dropdown' class='dropdown-content'>
+                <li><a href="#!">MDS</a></li>
+                <li><a href="#!">Non MDS</a></li>
+            </ul><br><br>
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Click here to select projection</a>
+            <ul id='dropdown1' class='dropdown-content'>
+                <li><a href="#!">Projection Pursuit</a></li>
+            </ul><br><br>
+            <a class='dropdown-trigger btn' href='#' data-target='dropdown2'>Click here to MDS layout</a>
+            <ul id='dropdown2' class='dropdown-content'>
+                <li><a href="#!">Projection Pursuit</a></li>
+            </ul>
+            <div class="input-field col s12">
+                <input placeholder="Number of projections" id="first_name" type="text">
+            </div>
+            <a class="waves-effect waves-light btn">Show global View</a>
+        </div>
+    </div>
+    <script src="lib/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="lib/materialize.min.js"></script>
+    <script src="lib/jquery-ui.js"></script>
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>

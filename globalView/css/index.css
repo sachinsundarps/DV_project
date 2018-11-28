@@ -1,0 +1,181 @@
+body {
+    font: 11px sans-serif;
+}
+
+#scatter-load {
+    margin-top: 20px;
+    width:500px;
+    float: left;
+}
+
+#subspace-view {
+    width:1300px;
+    height:800px;
+    float: left;
+
+}
+
+#options {
+    width:500px;
+    float: right;
+    height:800px;
+}
+
+.main-container {
+    margin-left: 20px;
+    border: 2px solid grey;
+    border-spacing: 15px;
+}
+
+#target{
+	float:left;
+	margin-left:20px;
+	margin-top:10px;
+}
+
+#player-name{
+	float:left;
+	width:900px;
+}
+
+.line1 {
+    fill: none;
+    stroke: #008000;
+    stroke-width: 12;
+    fill-opacity: .30;
+}
+
+.line1:hover {
+    fill: none;
+    stroke: #008000;
+    stroke-width: 12;
+    fill-opacity: .8;
+    cursor: pointer;
+}
+.line2 {
+    fill: none;
+    stroke: #ff0000;
+    stroke-width: 12;
+	fill-opacity: .30;
+}
+.line2:hover {
+    fill: none;
+    stroke: #ff0000;
+    stroke-width: 12;
+	fill-opacity: .8;
+	cursor: pointer;
+}
+
+#line-load{
+	margin-top: 20px;
+	margin-left: 100px;
+	width:500px;
+	float: left;
+}
+/* Style the dots by assigning a fill and stroke */
+.dot {
+    fill: #ffab00;
+    stroke: #fff;
+}
+h3{
+	text-align: center;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-size: 15px;
+    font-color: #004d99;
+}
+.circle{
+    fill: #4C4CFF;
+    fill-opacity: .30;
+    cursor: pointer;
+
+}
+
+.circle:hover{
+    fill: #4C4CFF;
+    fill-opacity: .80;
+    cursor: pointer;
+
+}
+.circle-win {
+    fill: #008000;
+    fill-opacity: .30;
+}
+
+.circle-win:hover {
+    fill: #008000;
+    fill-opacity: .8;
+    cursor: pointer;
+}
+
+.circle-loss {
+    fill: #ff0000;
+    fill-opacity: .30;
+    cursor: pointer;
+}
+
+#graph1{
+	font-size: 14px;
+	color:#2F4F4F;
+	margin-left:250px;
+	float:left;
+}
+
+#graph2{
+	font-size: 14px;
+	color:#2F4F4F;
+	margin-left:500px;
+	float:left;
+}
+#description{
+	font-size: 14px;
+	color:#000080;
+	margin-left:22px;
+	font-family: Arial;
+}
+.circle-loss:hover {
+    fill: #ff0000;
+    fill-opacity: .8;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: 100px;
+    padding: 2px;
+    font: 12px;
+    background: #ffffe0;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: auto;
+    z-index: -1;
+}
+
+div.tooltip2 {
+    position: absolute;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    padding: 2px;
+    font: 14px;
+    background: #ffffe0;
+    border: 2px;
+    border-radius: 8px;
+    pointer-events: auto;
+    z-index: -1;
+}
+.ui-autocomplete.ui-widget {
+    font-size: 16px;
+}
+
+.dropdown-trigger{
+    width:100%;
+}

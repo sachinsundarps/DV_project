@@ -1,0 +1,367 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Local Sight Explorer</title>
+    
+    <style>
+    .column {
+        float: left;
+        width: 48%;
+        padding: 2px;
+    }
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+    .lse-map {
+        height:580px;
+        width:1150px;
+        margin-top:10px;
+        border:solid grey 1px;
+    }
+    .touchpad {
+        height:580px;
+        width:625px;
+        margin-top:10px;
+        border:solid grey 1px;
+    }
+    .axis {
+        height:300px;
+        width:1150px;
+        border:solid grey 1px;
+    }
+    .pca-bar-chart {
+        height:300px;
+        width:625px;
+        border:solid grey 1px;
+    }
+    .svg {
+        background-color: lightgrey;
+    }
+    </style>
+</head>
+
+<body>
+    <div class='main-container' id='main-container'>
+        <h4 align="center">Local Sight Explorer - expansion of sight glyph</h4>
+        <div class="card-content" id="subspace-view" style="height: 600px;width: 1150px;">
+            <!--<form action="#">
+                <p>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Select Pattern</span>
+                  </label>
+                  <a class="waves-effect waves-light btn">Confirm</a>
+                  <a class="waves-effect waves-light btn">Refine</a>
+                  <a class="waves-effect waves-light btn">Clear</a>
+                  <a class="waves-effect waves-light btn">Export</a>
+                  <a class="waves-effect waves-light btn">Randomize</a>
+                  <label>
+                    <input type="checkbox" />
+                    <span>Only selected</span>
+                  </label>
+              </p>
+            </form>-->
+            <div class="lse-map">
+            <div class="myDiv" id="myDiv"></div>
+            </div>
+        </div>
+        <div id="options" style="height: 600px;width: 650px;">
+            <div class="touchpad"></div>
+        </div>
+        <div class="card-content" id="subspace-view" style="height: 300px;width: 1150px;">
+            <div class="axis">
+                <div class="card-content" id="subspace-view" style="height: 300px;width: 400px;">
+                    <div class="pca-axes" id="pca-axes">
+                    </div>
+                </div>
+                <div id="options" style="height: 300px;width: 340px;">
+                    <div class="input-field" style="height: 30px;width: 300px;">
+                        <select>
+                          <option value="1">1</option>
+                          <option value="2">2</option>
+                          <option value="3">3</option>
+                          <option value="4" selected>4</option>
+                          <option value="5">5</option>
+                          <option value="6">6</option>
+                          <option value="7">7</option>
+                          <option value="8">8</option>
+                          <option value="9">9</option>
+                          <option value="10">10</option>
+                        </select>
+                        <label>Point Size</label>
+                    </div>
+                </div>
+                <div id="options" style="height: 300px;width: 340px;">
+                    <form action="#">
+                        <p>
+                          <label>
+                            <input type="checkbox" />
+                            <span>3D Rotation Mode</span>
+                          </label><br>
+                          <label>
+                            <input type="checkbox" />
+                            <span>Show Trajectory</span>
+                          </label><br>
+                          <label>
+                            <input type="checkbox" />
+                            <span>Show 2D projections</span>
+                          </label><br>
+                          <label>
+                            <input type="checkbox" />
+                            <span>Show Axis On The Map</span>
+                          </label><br>
+                          <label>
+                            <input type="checkbox" />
+                            <span>Show Trajectory</span>
+                          </label><br>
+                          <a class="waves-effect waves-light btn">Display</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div id="options" style="height: 250px;width: 650px;">
+            <div class="pca-bar-chart" id="pca-bar-chart"></div>
+        </div>
+    </div>
+
+    <script src="lib/jquery-1.12.4.js"></script>
+    <script type="text/javascript" src="lib/materialize.min.js"></script>
+    <script src="lib/jquery-ui.js"></script>
+    <script src="lib/d3.v3.min.js"></script>
+    <script src="js/index.js"></script>
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('select');
+        var instances = M.FormSelect.init(elems, options);
+            });
+
+        d3.csv("0_pca_sachin.csv", function(error, data) {
+            d3.csv("0_labels.csv", function(error, labels) {
+                values = [];
+                names = [];
+                data.forEach(function(d) {
+                    var keys = Object.keys(d);
+                    var tmp = [];
+                    for (var i = 0;i < keys.length;i++) {
+                        tmp.push(d[keys[i]]);
+                    }
+                    values.push(tmp);
+                });
+                labels.forEach(function(d) {
+                    var keys = Object.keys(d);
+                    for (var i = 0;i < keys.length;i++) {
+                        names.push(d[keys[i]]);
+                    }
+                });
+
+                X = [];
+                Y = [];
+                for (var i = 0;i < values.length;i++) {
+                    X.push(values[i][0]);
+                    Y.push(values[i][1]);
+                }
+
+                var trace = {
+                    x: X,
+                    y: Y,
+                    mode: 'markers',
+                    text:names,
+                    type: 'scatter',
+                    marker: {
+                        color: 'rgb(255, 0, 0)',
+                        line: {
+                          width: 0.5
+                        }
+                    }
+                };
+
+                var layout = {
+                    autosize: false,
+                    width: 1148,
+                    height: 578,
+                    xaxis: {
+                        autorange: true,
+                        showgrid: true,
+                        zeroline: false,
+                        showline: false,
+                        autotick: false,
+                        ticks: '',
+                        showticklabels: false
+                    },
+                    yaxis: {
+                        autorange: true,
+                        showgrid: true,
+                        zeroline: false,
+                        showline: false,
+                        autotick: false,
+                        ticks: '',
+                        showticklabels: false
+                    },
+                    zaxis: {
+                        autorange: true,
+                        showgrid: false,
+                        zeroline: false,
+                        showline: false,
+                        autotick: false,
+                        ticks: '',
+                        showticklabels: false
+                    }
+                };
+
+                var plot_data = [trace];
+                Plotly.newPlot('myDiv', plot_data, layout, {showLink: false, displaylogo: false});
+            });
+        });
+
+        d3.csv("pca_eigenvalues.csv", function(error, data) {
+            values = []
+            data.forEach(function(d) {
+                values.push(d.eigenvalues)
+            });
+            var X = [];
+            for (var i = 1; i < 10; i++) {
+               X.push(i);
+            }
+
+            var data = [
+              {
+                x: X,
+                y: values,
+                type: 'bar',
+                marker: {
+                    color: 'rgb(0,100,0)',
+                }
+              }
+            ];
+
+            var layout = {
+                title: "PCA",
+                autosize: false,
+                width: 623,
+                height: 238,
+                hovermode: false,
+                xaxis: {
+                    autorange: true,
+                    showgrid: false,
+                    zeroline: false,
+                    showline: true,
+                    autotick: false,
+                    ticks: '',
+                    showticklabels: false
+                },
+                yaxis: {
+                    autorange: true,
+                    showgrid: false,
+                    zeroline: false,
+                    showline: true,
+                    autotick: false,
+                    ticks: '',
+                    showticklabels: false
+                }
+            };
+            Plotly.newPlot('pca-bar-chart', data, layout, {displayModeBar: false, showLink: false, displaylogo: false});
+        });
+
+        /*d3.csv("pca_axes.csv", function(error, data) {
+            
+            X = []
+            Y = []
+            
+            data.forEach(function(d) {
+                X.push(d.X);
+                Y.push(d.Y)
+            });
+            
+            var data = [
+                {
+                    x: X,
+                    y: Y,
+                    mode: 'lines',
+                    name: 'lines'
+                }
+            ];
+
+            var layout = {
+                autosize: false,
+                width: 320,
+                height: 298,
+                xaxis: {
+                    autorange: true,
+                    showgrid: false,
+                    zeroline: true,
+                    showline: false,
+                    autotick: false,
+                    ticks: '',
+                    showticklabels: false
+                },
+                yaxis: {
+                    autorange: true,
+                    showgrid: false,
+                    zeroline: true,
+                    showline: false,
+                    autotick: false,
+                    ticks: '',
+                    showticklabels: false
+                }
+            };
+
+            Plotly.newPlot('pca-axes', data, layout, {displayModeBar: false, showLink: false, displaylogo: false});
+        });*/
+
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 380,
+        height = 298;
+
+        var x = d3.scale.linear().range([0, width]);
+        var y = d3.scale.linear().range([height, 0]);
+        var xAxis = d3.svg.axis().scale(x).orient("bottom").ticks(0);
+        var yAxis = d3.svg.axis().scale(y).orient("bottom").ticks(0);
+        var valueline = d3.svg.line()
+            .x(function(d) { return x(d.X); })
+            .y(function(d) { return y(d.Y); });
+
+        var svg = d3.select("#pca-axes").append("svg")
+            .attr("class", "svg")
+            .attr("width", width)
+            .attr("height", height)
+          .append("g")
+            .attr("transform",
+                  "translate(" + 200 + "," + -150 + ")");
+
+        d3.csv("pca_axes.csv", function(error, data) {
+          if (error) throw error;
+
+          // format the data
+          data.forEach(function(d) {
+              d.x = d.X;
+              d.y = d.Y;
+          });
+
+          svg.append("path")
+              .data([data])
+              .attr("class", "line")
+              .style("stroke", "steelblue")
+              .style("stroke-width", "1.5")
+              .attr("d", valueline);
+
+          svg.append("g")
+              .attr("transform", "translate(0," + 298 + ")")
+              .call(xAxis);
+
+          svg.append("g")
+              .attr("transform", "translate(0," + 300 + ")")
+              .call(yAxis)
+              .attr("transform", "rotate(90)");
+
+        });
+    </script>
+</body>
+</html>
